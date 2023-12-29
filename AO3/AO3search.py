@@ -15,7 +15,7 @@ class AO3data:
     numworks = -1
     popularity = {"kudos": -1, "hits": -1, "comments": -1, "bookmarks": -1}
     canonicalTagName = ""
-    categories = {"rating": {"num": 5, "top": {}}, "warning": {"num": 6, "top": {}}, "category": {"num": 6, "top": {}}, "fandom": {"num": 10, "top": {}}, "character": {"num": 10, "top": {}}, "relationship": {"num": 10, "top": {}}, "freeform": {"num": 10, "top": {}}}
+    categories = {"rating": {"num": 5, "top": {}}, "archive_warning": {"num": 6, "top": {}}, "category": {"num": 6, "top": {}}, "fandom": {"num": 10, "top": {}}, "character": {"num": 10, "top": {}}, "relationship": {"num": 10, "top": {}}, "freeform": {"num": 10, "top": {}}}
     htmlData = {}
     tagHtmlData = {}
     metaTags = []
@@ -35,11 +35,11 @@ class AO3data:
             string = self.searchParams[k] + ", "
             fo.write(string.encode('utf8'))
         try:
-            fo.write(str(self.numworks))
+            fo.write(bytes(self.numworks))
         except:
             pdb.set_trace()
             print("COULDN'T WRITE TO FILE: ", self.numworks)
-        fo.write(", ")
+        fo.write(b", ")
 
         sortedcats = sorted(self.categories.keys())
         for cat in sortedcats:
@@ -48,17 +48,17 @@ class AO3data:
             sortedkeys = sorted(currlist, key=currlist.get, reverse=True)
             count = 0
             for k in sortedkeys:
-                fo.write(k.encode("utf-8") + ", ")
+                fo.write(k.encode("utf-8") + b", ")
 #                print k.encode("utf-8") + ", "
-                fo.write(str(currlist[k]) + ", ")
-#                print str(currlist[k]) + ", "
+                fo.write(bytes(currlist[k]) + b", ")
+#                print bytes(currlist[k]) + ", "
                 count = count + 1
             for i in range(count, num):
-                fo.write(", , ")
+                fo.write(b", , ")
 #                print ", , "
 
         #NEWLINE
-        fo.write("\n")
+        fo.write(b"\n")
 
     # METHOD: printShortCSV
         # just the NumWorks
@@ -67,7 +67,7 @@ class AO3data:
             string = self.searchParams[k] + ", "
             fo.write(string.encode('utf8'))
         try:
-            fo.write(str(self.numworks))
+            fo.write(bytes(self.numworks))
             fo.write("\n")
         except:
             pdb.set_trace()
@@ -90,18 +90,18 @@ class AO3data:
         for k in self.searchParams.keys():
             string = k + ", "
             fo.write(string.encode('utf8'))
-        fo.write("Num Works,")
+        fo.write(b"Num Works,")
 
         # PRINT TOP X names
         for cat in sorted(self.categories.keys()):
             val = self.categories[cat]["num"]
             for i in range(0, val):
                 tmp = "Top " + cat + " " + str(i) + ", "
-                fo.write(tmp)
-                fo.write("count, ")
+                fo.write(bytes(tmp, encoding='utf-8'))
+                fo.write(b"count, ")
 
         #NEWLINE
-        fo.write("\n")
+        fo.write(b"\n")
 
     # METHOD: fetchHTML
     def fetchHTML(self):
@@ -192,8 +192,8 @@ class AO3data:
 
         for k in self.categories.keys():
             idstring = "include_" + k + "_tags"
-#            print "*******"
-#            print idstring
+#            print("*******")
+#            print(idstring)
             try:
                 topList = soup.findAll("dd", {"id" : idstring})
 #                print(topList)
@@ -216,7 +216,7 @@ class AO3data:
 #                print labels
                 for L in labels:
 #                    print L.text
-                    tmp = re.compile('(.*) \(([0-9]+)\)')
+                    tmp = re.compile(b'(.*) \(([0-9]+)\)')
                     m = tmp.match(L.text.strip())
                     self.categories[k]["top"][m.group(1)] = int(m.group(2))
             except:
@@ -257,14 +257,14 @@ class AO3data:
             w = tmp[0]
         except:
             dummy = ''
-            #print "no warning in searchParams ", self.searchParams
+            print("no  in searchParams ", self.searchParams)
 
         # fetch the tag(s)
-        t = unicode('&tag_id=')
+        t = str('&tag_id=')
         try:
             tag = self.searchParams['tag']
             tmp = convert.convertToAO3(tag, 'tag', False)
-            t += unicode(tmp[0])
+            t += str(tmp[0])
         except:
             dummy = ''
             #print "no tag in searchParams ", self.searchParams
@@ -285,7 +285,7 @@ class AO3data:
         urlpredate = '&work_search%5Brevised_at%5D='
         urlpretag = '&work_search%5Blanguage_id%5D=&work_search%5Bcomplete%5D=0'
 
-        tmp = unicode(urlprefix + c + w + urlpredate + d + urlprequery + swr + urlpretag + t)
+        tmp = str(urlprefix + c + w + urlpredate + d + urlprequery + swr + urlpretag + t)
         self.searchURL = tmp.encode('utf-8')
 
 
@@ -339,7 +339,7 @@ class AO3data:
         urlprefreeform = '&work_search%5Brating_ids%5D=&work_search%5Bcharacter_names%5D=&work_search%5Brelationship_names%5D=&work_search%5Bfreeform_names%5D='
         urlsuffix = '&work_search%5Bhits%5D=&work_search%5Bkudos_count%5D=&work_search%5Bcomments_count%5D=&work_search%5Bbookmarks_count%5D=&work_search%5Bsort_column%5D=&work_search%5Bsort_direction%5D=&commit=Search'
 
-        tmp = unicode(urlpredate + d + urlprefandom + fan + urlprefreeform + free + urlsuffix)
+        tmp = str(urlpredate + d + urlprefandom + fan + urlprefreeform + free + urlsuffix)
         self.searchURL = tmp.encode('utf-8')
 
 

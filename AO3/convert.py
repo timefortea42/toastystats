@@ -1,5 +1,5 @@
 import re
-import urllib
+import urllib.parse
 
 def convertToAO3(s, sType, verbose):
     
@@ -16,7 +16,7 @@ def convertToAO3(s, sType, verbose):
 #        s = re.sub('\(', '%28', s)
 #        s = re.sub('\)', '%29', s)
 #        s = re.sub('\&', '%26', s)
-        s = urllib.quote_plus(s)
+        s = urllib.parse.quote_plus(s)
         return [s, tmp] 
 #        return [s.encode('utf-8'), tmp] 
 
@@ -27,15 +27,15 @@ def convertToAO3(s, sType, verbose):
         tmp = s
 #        s = re.sub(' ', '+', s)
 #        s = re.sub('\ ', '%20', s)
-        s = re.sub('\.', '*d*', s)
-        s = re.sub('\?', '*q*', s)
-        s = re.sub('\/', '*s*', s)
+        s = re.sub(b'\.', b'*d*', s)
+        s = re.sub(b'\?', b'*q*', s)
+        s = re.sub(b'\/', b'*s*', s)
 #        s = re.sub('\,', '%2C', s)
 #        s = re.sub('\|', '%7C', s)
 #        s = re.sub('\(', '%28', s)
 #        s = re.sub('\)', '%29', s)
 #        s = re.sub('\&', '%26', s)
-        s = urllib.quote(s)
+        s = urllib.parse.quote(s)
         return [s, tmp] 
 #        return [s.encode('utf-8'), tmp] 
 
@@ -59,7 +59,7 @@ def convertToAO3(s, sType, verbose):
         tmp = ''
 
         # convert s to a list
-        if isinstance(s, str) or isinstance(s, unicode):
+        if isinstance(s, str) or isinstance(s, str):
             s = [s]
             if verbose:
                 print('converting string to list: ', s)
@@ -111,7 +111,7 @@ def convertToAO3(s, sType, verbose):
         tmp = ''
 
         # convert s to a list
-        if isinstance(s, str) or isinstance(s, unicode):
+        if isinstance(s, str) or isinstance(s, str):
             s = [s]
             if verbose:
                 print('converting string to list: ', s)

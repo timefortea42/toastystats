@@ -17,7 +17,7 @@ if len(sys.argv) > 3:
 jsonfile = sys.argv[1]
 csvfile = sys.argv[2]
 
-fo = open(csvfile, "w")
+fo = open(csvfile, "wb")
 
 searchList = importJSON.importFile(jsonfile, verbose)
 
