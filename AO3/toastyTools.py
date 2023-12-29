@@ -211,14 +211,16 @@ def getNumWorksFromSoup(soup, isSortAndFilterURL):
         return errorNum
 
 #    print "************ nums"
-    nums = re.findall('([0-9]+)', line)
+#    print(line)
+    nums = re.findall('([0-9]+,?[0-9]*)', line)
     if len(nums) == 0:
         return errorNum
     elif len(nums) == 1:
         numWorks = int(nums[0])
     else:
-        numWorks = int(nums[2])
+        numWorks = int(nums[2].replace(',', ''))
 
+#    print(numWorks)
     return numWorks
 
     

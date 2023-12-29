@@ -35,7 +35,7 @@ class AO3data:
             string = self.searchParams[k] + ", "
             fo.write(string.encode('utf8'))
         try:
-            fo.write(bytes(self.numworks))
+            fo.write(str(self.numworks).encode())
         except:
             pdb.set_trace()
             print("COULDN'T WRITE TO FILE: ", self.numworks)
@@ -146,9 +146,9 @@ class AO3data:
 #               1 - 20 of 239480 Works in <a class="tag" href="/tags/F*s*F">F/F</a>
             tagHTML = soup.find_all("a", {"class": "tag"})
             tagHTML = tagHTML[0]
-#            print tagHTML
+#            print(tagHTML)
             tagName = tagHTML.text
-#            print tagName
+#            print(tagName)
             self.canonicalTagName = tagName
         else:
             # no tag name for a non-sorted page
