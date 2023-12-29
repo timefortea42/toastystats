@@ -49,13 +49,13 @@ class AO3data:
             count = 0
             for k in sortedkeys:
                 fo.write(k.encode("utf-8") + b", ")
-#                print k.encode("utf-8") + ", "
-                fo.write(bytes(currlist[k]) + b", ")
-#                print bytes(currlist[k]) + ", "
+#                print(k.encode("utf-8") + b", ")
+                fo.write(str(currlist[k]).encode() + b", ")
+#                print(str(currlist[k]).encode() + b", ")
                 count = count + 1
             for i in range(count, num):
                 fo.write(b", , ")
-#                print ", , "
+#                print(b", , ")
 
         #NEWLINE
         fo.write(b"\n")
