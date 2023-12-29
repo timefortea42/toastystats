@@ -212,11 +212,11 @@ class AO3data:
 
             try:
                 labels = top.find_all("label")
-#                print "%%%%%%%"
-#                print labels
+#                print("%%%%%%%")
+#                print(labels)
                 for L in labels:
-#                    print L.text
-                    tmp = re.compile(b'(.*) \(([0-9]+)\)')
+#                    print(L.text.strip())
+                    tmp = re.compile('(.*) \\(([0-9]+)\\)')
                     m = tmp.match(L.text.strip())
                     self.categories[k]["top"][m.group(1)] = int(m.group(2))
             except:
@@ -257,7 +257,7 @@ class AO3data:
             w = tmp[0]
         except:
             dummy = ''
-            print("no  in searchParams ", self.searchParams)
+            print("no warning in searchParams ", self.searchParams)
 
         # fetch the tag(s)
         t = str('&tag_id=')

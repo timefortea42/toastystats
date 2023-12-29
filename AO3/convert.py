@@ -27,9 +27,9 @@ def convertToAO3(s, sType, verbose):
         tmp = s
 #        s = re.sub(' ', '+', s)
 #        s = re.sub('\ ', '%20', s)
-        s = re.sub(b'\.', b'*d*', s)
-        s = re.sub(b'\?', b'*q*', s)
-        s = re.sub(b'\/', b'*s*', s)
+        s = re.sub(b'\\.', b'*d*', s)
+        s = re.sub(b'\\?', b'*q*', s)
+        s = re.sub(b'\\/', b'*s*', s)
 #        s = re.sub('\,', '%2C', s)
 #        s = re.sub('\|', '%7C', s)
 #        s = re.sub('\(', '%28', s)
